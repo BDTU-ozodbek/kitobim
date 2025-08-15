@@ -1,0 +1,53 @@
+{% extends 'books/base.html' %}
+
+{% block title %}Bosh sahifa{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% for book in page_obj %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="book-cover">
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text"><strong>Muallif:</strong> {{ book.author }}</p>
+                <p class="card-text"><strong>Betlar:</strong> {{ book.pages }}</p>
+                <p class="card-text">{{ book.description|truncatewords:15 }}</p>
+                <a href="{% url 'book_detail' book.pk %}" class="btn btn-primary">Batafsil</a>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Pagination -->
+<nav>
+    <ul class="pagination justify-content-center">
+        {% if page_obj.paginator.num_pages > 1 %}
+        <nav>
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Oldingi</a>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Keyingi</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+
+    </ul>
+</nav>
+{% endblock %}

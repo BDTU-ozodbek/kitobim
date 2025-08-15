@@ -1,0 +1,18 @@
+{% extends 'books/base.html' %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="book-cover">
+    </div>
+    <div class="col-md-8">
+        <h2>{{ book.title }}</h2>
+        <p><strong>Muallif:</strong> {{ book.author }}</p>
+        <p><strong>Betlar soni:</strong> {{ book.pages }}</p>
+        <p>{{ book.description }}</p>
+        <a href="/" class="btn btn-secondary">⬅ Orqaga</a>
+    </div>
+</div>
+{% endblock %}
